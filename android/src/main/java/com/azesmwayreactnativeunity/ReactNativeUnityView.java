@@ -53,9 +53,4 @@ public class ReactNativeUnityView extends FrameLayout {
         }
     }
 
-    @Override
-    protected void onDetachedFromWindow() {
-        ReactNativeUnity.addUnityViewToBackground();
-        super.onDetachedFromWindow();
-    }
 }
