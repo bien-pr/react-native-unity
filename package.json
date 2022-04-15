@@ -1,5 +1,5 @@
 {
-  "name": "@azesmway/react-native-unity",
+  "name": "@bien-pr/react-native-unity",
   "version": "0.1.12",
   "description": "React Native Unity",
   "main": "lib/commonjs/index",
@@ -38,13 +38,13 @@
     "android",
     "unity"
   ],
-  "repository": "https://github.com/azesmway/react-native-unity",
-  "author": "azesm <azesm@me.com> (https://github.com/azesmway)",
+  "repository": "https://github.com/bien-pr/react-native-unity",
+  "author": "Sewon Ahn <sewonist@gmail.com> (https://github.com/sewonist)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/azesmway/react-native-unity/issues"
+    "url": "https://github.com/bien-pr/react-native-unity/issues"
   },
-  "homepage": "https://github.com/azesmway/react-native-unity#readme",
+  "homepage": "https://github.com/bien-pr/react-native-unity#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"

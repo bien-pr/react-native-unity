@@ -1,3 +1,7 @@
+# @bien-pr/react-native-unity
+
+This repository forked from [@azesmway/react-native-unity](https://github.com/azesmway/react-native-unity) for some custom issue.
+
 # @azesmway/react-native-unity
 
 The plugin that allows you to embed a UNITY project into the react native as a full-fledged component
@@ -7,11 +11,11 @@ The plugin that allows you to embed a UNITY project into the react native as a f
 ## RN
 
 ```sh
-npm install @azesmway/react-native-unity
+npm install @bien-pr/react-native-unity
 
 or
 
-yarn add @azesmway/react-native-unity
+yarn add @bien-pr/react-native-unity
 ```
 
 ## Unity
@@ -109,7 +113,7 @@ public class ButtonBehavior : MonoBehaviour
 
 ```js
 import React, { useRef, useEffect } from 'react';
-import UnityView from '@azesmway/react-native-unity';
+import UnityView from '@bien-pr/react-native-unity';
 
 interface IMessage {
   gameObject: string;
