@@ -5,6 +5,7 @@ import {
   findNodeHandle,
   Platform,
   NativeSyntheticEvent,
+  ViewStyle,
 } from 'react-native';
 
 interface UnityMessage {
@@ -12,7 +13,10 @@ interface UnityMessage {
 }
 
 type ReactNativeUnityViewProps = {
+  androidKeepPlayerMounted?: boolean;
+  fullScreen?: boolean;
   onUnityMessage?: (event: NativeSyntheticEvent<UnityMessage>) => void;
+  style?: ViewStyle;
 };
 
 const ComponentName = 'ReactNativeUnityView';
@@ -23,7 +27,7 @@ const ReactNativeUnityView =
 export default class UnityView extends React.Component<ReactNativeUnityViewProps> {
   static defaultProps = {};
 
-  constructor(props: any) {
+  constructor(props: ReactNativeUnityViewProps) {
     super(props);
   }
 
