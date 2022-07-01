@@ -5,6 +5,7 @@ import {
   findNodeHandle,
   Platform,
   NativeSyntheticEvent,
+  ViewStyle,
 } from 'react-native';
 
 interface UnityMessage {
@@ -12,7 +13,10 @@ interface UnityMessage {
 }
 
 type ReactNativeUnityViewProps = {
+  androidKeepPlayerMounted?: boolean;
+  fullScreen?: boolean;
   onUnityMessage?: (event: NativeSyntheticEvent<UnityMessage>) => void;
+  style?: ViewStyle;
 };
 
 const ComponentName = 'ReactNativeUnityView';
@@ -23,7 +27,7 @@ const ReactNativeUnityView =
 export default class UnityView extends React.Component<ReactNativeUnityViewProps> {
   static defaultProps = {};
 
-  constructor(props: any) {
+  constructor(props: ReactNativeUnityViewProps) {
     super(props);
   }
 
@@ -51,6 +55,14 @@ export default class UnityView extends React.Component<ReactNativeUnityViewProps
     );
   }
 
+  public resumeUnity() {
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this),
+      this.getCommand('resumeUnity'),
+      []
+    );
+  }
+
   private getCommand(cmd: string): any {
     if (Platform.OS === 'ios') {
       return UIManager.getViewManagerConfig('ReactNativeUnityView').Commands[
@@ -67,9 +79,11 @@ export default class UnityView extends React.Component<ReactNativeUnityViewProps
     };
   }
 
-  public componentWillUnmount() {
-    this.unloadUnity();
-  }
+  // 재로그인시 유니티 실행을 위해서 삭제
+  // 2022-07-01
+  // public componentWillUnmount() {
+  //   this.unloadUnity();
+  // }
 
   public render() {
     return <ReactNativeUnityView {...this.getProps()} />;

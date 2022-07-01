@@ -27,6 +27,7 @@ import java.util.Objects;
 @SuppressLint("ViewConstructor")
 public class ReactNativeUnityView extends FrameLayout {
     private UnityPlayer view;
+    public boolean keepPlayerMounted = false;
 
     public ReactNativeUnityView(Context context) {
         super(context);
@@ -40,8 +41,21 @@ public class ReactNativeUnityView extends FrameLayout {
     @Override
     public void onWindowFocusChanged(boolean hasWindowFocus) {
         super.onWindowFocusChanged(hasWindowFocus);
-        if (view != null) {
-            view.windowFocusChanged(hasWindowFocus);
+        if (view == null) {
+            return;
+        }
+        view.windowFocusChanged(hasWindowFocus);
+
+        if (!keepPlayerMounted || !ReactNativeUnity._isUnityReady) {
+            return;
+        }
+
+        // pause Unity on blur, resume on focus
+        if (hasWindowFocus && ReactNativeUnity._isUnityPaused) {
+            view.requestFocus();
+            view.resume();
+        } else if (!hasWindowFocus && !ReactNativeUnity._isUnityPaused) {
+            view.pause();
         }
     }
 
@@ -52,5 +66,17 @@ public class ReactNativeUnityView extends FrameLayout {
             view.configurationChanged(newConfig);
         }
     }
+    
+    // 제로클럽 화면 유지를 위해서 삭제
+    // 2022-07-01
+//    @Override
+//    protected void onDetachedFromWindow() {
+//        Log.d("ReactNativeUnity", "6 ---- Call onDetachedFromWindow ---- ");
+//        if (!this.keepPlayerMounted) {
+//            ReactNativeUnity.addUnityViewToBackground();
+//        }
+//        super.onDetachedFromWindow();
+//    }
+
 
 }
