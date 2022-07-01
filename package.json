@@ -1,6 +1,10 @@
 {
   "name": "@bien-pr/react-native-unity",
+<<<<<<< HEAD
   "version": "0.2.1",
+=======
+  "version": "0.1.18",
+>>>>>>> 548b89f4e70a81604441b01e08bdb810f03e34f7
   "description": "React Native Unity",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

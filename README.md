@@ -76,7 +76,7 @@ public class ButtonBehavior : MonoBehaviour
 
 ### Android
 
-1. Build Unity app to `[project_root]/unity/builds/android`
+1. Export Unity app to `[project_root]/unity/builds/android`
 2. Add the following lines to `android/settings.gradle`:
    ```gradle
    include ':unityLibrary'
@@ -103,8 +103,9 @@ public class ButtonBehavior : MonoBehaviour
     ```
 6. Remove `<intent-filter>...</intent-filter>` from ``<project_name>/unity/builds/android/unityLibrary/src/main/AndroidManifest.xml`` at unityLibrary to leave only integrated version.
 
-# Know issues
+# Known issues
 
+- Works only on real iOS devices.  Android emulators are capable of showing the UnityView.
 - On IOS the Unity view is waiting for a parent with dimensions greater than 0 (from RN side). Please take care of this because if it is not the case, your app will crash with the native message `MTLTextureDescriptor has width of zero`.
 
 # Usage
@@ -114,6 +115,8 @@ public class ButtonBehavior : MonoBehaviour
 ```js
 import React, { useRef, useEffect } from 'react';
 import UnityView from '@bien-pr/react-native-unity';
+import { View } from 'react-native';
+
 
 interface IMessage {
   gameObject: string;
@@ -122,30 +125,27 @@ interface IMessage {
 }
 
 const Unity = () => {
-  const unityRef = useRef();
-
-  const message: IMessage = {
-    gameObject: 'gameObject',
-    methodName: 'methodName',
-    message: 'message',
-  };
+  const unityRef = useRef<UnityView>(null);
 
   useEffect(() => {
-    if (unityRef && unityRef.current) {
+    if (unityRef?.current) {
+      const message: IMessage = {
+        gameObject: 'gameObject',
+        methodName: 'methodName',
+        message: 'message',
+      };
       unityRef.current.postMessage(message.gameObject, message.methodName, message.message);
     }
   }, []);
 
   return (
-    // If you wrap your UnityView inside a parent, please take care to set dimensions to it (with `flex:1` for example).
-    // See the `Know issues` part in the README.
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <UnityView
         ref={unityRef}
         style={{ flex: 1 }}
-        onUnityMessage={(result) =>
+        onUnityMessage={(result) => {
           console.log('onUnityMessage', result.nativeEvent.message)
-        }
+        }}
       />
     </View>
   );
@@ -156,7 +156,10 @@ export default Unity;
 ```
 
 ## Props
+- `androidKeepPlayerMounted?: boolean` - if set to true, keep the player mounted even when the view that contains it has lost focus.  The player will be paused on blur and resumed on focus.  **FOR ANDROID:** has no effect on iOS.
+- `fullScreen?: boolean` - defaults to true.  If set to false, will not request full screen access.  **ANDROID ONLY**
 - `onUnityMessage?: (event: NativeSyntheticEvent)` - receives a message from a Unity
+- `style: ViewStyle` - styles the UnityView.  (Won't show on Android without dimensions.  Recommended to give it `flex: 1` as in the example)
 
 ## Methods
 - `postMessage(gameObject, methodName, message)` - sends a message to the Unity. **FOR IOS:** The native method of unity is used to send a message
