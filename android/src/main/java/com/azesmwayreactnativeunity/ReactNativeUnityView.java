@@ -65,17 +65,14 @@ public class ReactNativeUnityView extends FrameLayout {
             view.configurationChanged(newConfig);
         }
     }
-    
-    // 제로클럽 화면 유지를 위해서 삭제
-    // 2022-07-01
-//    @Override
-//    protected void onDetachedFromWindow() {
-//        Log.d("ReactNativeUnity", "6 ---- Call onDetachedFromWindow ---- ");
-//        if (!this.keepPlayerMounted) {
-//            ReactNativeUnity.addUnityViewToBackground();
-//        }
-//        super.onDetachedFromWindow();
-//    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        if (!this.keepPlayerMounted) {
+            ReactNativeUnity.addUnityViewToBackground();
+        }
+        super.onDetachedFromWindow();
+    }
 
 
 }

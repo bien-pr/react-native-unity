@@ -87,6 +87,12 @@ public class ReactNativeUnityViewManager extends SimpleViewManager<ReactNativeUn
             case "resumeUnity":
                 ReactNativeUnity.getPlayer().resume();
                 return;
+            case "focusUnity":
+                view.onWindowFocusChanged(false);
+                ReactNativeUnity.pause();
+                view.onWindowFocusChanged(true);
+                ReactNativeUnity.resume();
+                return;
             default:
                 throw new IllegalArgumentException(String.format(
                         "Unsupported command %s received by %s.",

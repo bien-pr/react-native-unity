@@ -1,6 +1,6 @@
 {
   "name": "@bien-pr/react-native-unity",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "React Native Unity",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -39,7 +39,7 @@
     "unity"
   ],
   "repository": "https://github.com/bien-pr/react-native-unity",
-  "author": "sewonist <sewonist@gmail.com> (https://github.com/bien-pr)",
+  "author": "sewonist <sewonist@gmail.com> (https://github.com/bien-pr)",git 
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bien-pr/react-native-unity/issues"

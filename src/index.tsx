@@ -63,6 +63,14 @@ export default class UnityView extends React.Component<ReactNativeUnityViewProps
     );
   }
 
+  public focusUnity() {
+    UIManager.dispatchViewManagerCommand(
+      findNodeHandle(this),
+      this.getCommand('focusUnity'),
+      []
+    );
+  }
+
   private getCommand(cmd: string): any {
     if (Platform.OS === 'ios') {
       return UIManager.getViewManagerConfig('ReactNativeUnityView').Commands[
